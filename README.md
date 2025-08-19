@@ -1,321 +1,105 @@
-# 📘 NumPy 4 Everyone – Study Series
+# 📘 NumPy 4 Everyone  
 
-A structured journey into mastering **NumPy**, with theory, mathematical intuition, and coding exercises.
+> A structured, hands-on journey to master **NumPy** — from basics to advanced linear algebra 🚀  
 
----
-
-## 📂 Phases Overview
-
-### Phase 1
-Covered topics:
-- Numpy_4Everyone
-- Creating array from list
-- Difference btw normal array and np array
-Feature             | Python List                | NumPy Array
---------------------|----------------------------|----------------------------
-Type                | Heterogeneous (mixed types)| Homogeneous (same type)
-Performance         | Slower (pure Python loop)  | Faster (C-optimized)
-Memory Usage        | More memory                | Less memory
-Math Operations     | Not supported directly     | Element-wise supported
-Indexing            | Basic indexing/slicing     | Advanced indexing/slicing
-Broadcasting        | Not supported              | Supported
-Multi-dimensional   | Needs nesting              | Built-in multi-dimensional
-Best For            | Small, mixed-type data     | Large numeric data, ML/DL
-- Types of build it method to make array
-- Dim of array
-
-Type        | Shape             | Use
-------------|-------------------|-----------------------------------
-Scalar      | ()                | Learning rate
-Vector      | (300,)            | Word embeddings
-Matrix      | (28,28)           | Grayscale image
-3D Tensor   | (3,224,224)       | RGB image / NLP seq
-4D Tensor   | (32,3,224,224)    | Batch of RGB images
-Higher      | (batch,seq,feat,…)| Advanced NLP / multi-modal
-- Array Property
-Property    | Description                                  | Example Output
-------------|----------------------------------------------|---------------
-.ndim       | Number of dimensions                         | 2
-.shape      | Dimensions as a tuple (rows, cols, …)        | (3, 4)
-.size       | Total number of elements                     | 12
-.dtype      | Data type of array elements                  | int32
-.itemsize   | Size of one element in bytes                  | 4
-.nbytes     | Total memory (in bytes) consumed by elements | 48
-.T          | Transposed view of the array                 | Flips rows/cols
-.data       | Buffer containing actual data                | <memory>
-- Flatten vs ravel
-
-Method     | Description                                                                 | Returns Copy or View | Example
------------|------------------------------------------------------------------------------|----------------------|----------------------------------
-flatten()  | Returns a new 1D array copy of the original array's data                     | Copy                 | arr.flatten()
-ravel()    | Returns a flattened view of the array when possible; otherwise returns copy | View (if possible)   | arr.ravel()
-- y
-      ↑
-      |
-      |      ● (x, y)
-      |
-      +--------------→ x
-     (0,0)
-2D array as a co-ordinate not as a matrix
-
-### Phase 2
-Covered topics:
-- Numpy Array operation in 1D
-Operation                  | Method / Function                  | Description
----------------------------|------------------------------------|----------------------------------------------------------
-Basic Slicing               | arr[start:end]                     | Extracts elements from index `start` to `end-1`.
-Slicing with Step           | arr[start:end:step]                 | Extracts elements with a given step size.
-Negative Indexing           | arr[-n:]                           | Selects last `n` elements.
-Reverse (Slicing)           | arr[::-1]                          | Reverses the array using slicing.
-Reverse with Step           | arr[::-step]                       | Reverses array and selects elements with step size.
-Inbuilt Reverse (NumPy)     | np.flip(arr)                       | Reverses array using NumPy's built-in function.
-Sort Ascending (NumPy)      | np.sort(arr)                       | Sorts elements in ascending order.
-Sort Descending (NumPy)     | np.sort(arr)[::-1]                  | Sorts in ascending order, then reverses for descending.
-Sort Descending (List)      | list.sort(reverse=True)            | Python list method to sort in descending order (not NumPy).
-Difference: Reverse vs Sort | Reverse changes only positions,    | Sorting rearranges elements based on their values.
-                            | values remain the same.            |
-- Numpy Operation In 2D
-- Filter & Mask
-| Concept       | Meaning                                                         | Example         |
-| ------------- | --------------------------------------------------------------- | --------------- |
-| **Mask**      | Boolean array indicating which elements meet a condition        | `arr > 30`      |
-| **Filtering** | Using the mask to get only the elements that meet the condition | `arr[arr > 30]` |
-- | Feature                   | Description                                               | Example / Notes                                    |
-|---------------------------|-----------------------------------------------------------|---------------------------------------------------|
-| np.where(condition)       | Returns indices where the condition is True              | `arr = np.array([5,10])` <br> `np.where(arr>5)` <br> Output: `(array([1]),)` |
-| np.where(condition, x, y) | Creates a new array with values x if True, y if False    | `arr = np.array([10,20])` <br> `np.where(arr>15,1,0)` <br> Output: `[0 1]` |
-| Multiple Conditions       | Nest `np.where()` for multiple conditions               | `np.where(arr<20,'Low', np.where(arr<=40,'Medium','High'))` <br> Output: `['Low','Medium']` |
-| np.where without array    | Use on generated sequences like `np.arange()`           | `nums = np.arange(5)` <br> `np.where(nums%2==0,'Even','Odd')` <br> Output: `['Even','Odd','Even','Odd','Even']` |
-| Filtering indices         | Returns array of indices satisfying the condition        | `np.where(arr>10)` <br> Output: `(array([2,3]),)` |
-| Key Points                | 1. `np.where` → arrays <br> 2. Nest for multiple conditions <br> 3. Can generate arrays from scratch <br> 4. Can be used for filtering/masking | - |
-- Operation on array
-
-| Method                       | Description                                      | Example / Notes |
-|-------------------------------|-------------------------------------------------|----------------|
-| `np.append(array, values)`    | Adds elements at the end, returns new array    | `arr = np.array([1,2,3])` <br> `new_arr = np.append(arr, [4,5])` <br> Output: `[1 2 3 4 5]` |
-| `np.insert(array, index, values)` | Insert element at specific index             | `np.insert(arr, 1, 10)` <br> Output: `[1 10 2 3]` |
-| `np.concatenate((arr1, arr2))` | Join two arrays                                | `arr1 = [1,2]; arr2=[3,4]` <br> Output: `[1 2 3 4]` |
-| `np.vstack((arr1, arr2))`     | Stack arrays vertically (row-wise)             | `np.vstack((arr1, arr2))` → `[[1 2] [3 4]]` |
-| `np.hstack((arr1, arr2))`     | Stack arrays horizontally (column-wise)       | `np.hstack((arr1, arr2))` → `[1 2 3 4]` |
-- Mathematical Operation
- NumPy Cheatsheet – Arrays, Conditional Arithmetic & Multiplication
-
-| Concept                        | Theory / Rules                                                                                 | Notes / Examples |
-|--------------------------------|-------------------------------------------------------------------------------------------------|-----------------|
-| **Adding Elements**             | `np.append`, `np.insert`, `np.concatenate`, `np.vstack`, `np.hstack` add or stack arrays.      | New arrays returned; original unchanged |
-| **Conditional Arithmetic**      | `np.where(condition, x, y)` applies arithmetic based on condition.                             | Logical AND `&`, OR `|` allowed; element-wise operations |
-| **Broadcasting**                | Arrays of different shapes can be used in element-wise ops if trailing dimensions match or one is 1. | Smaller arrays are “stretched” automatically |
-| **Inner Dimension Rule**        | For matrix multiplication `A(m×n) @ B(p×q)`, n must equal p; result shape = (m×q).           | Inner dims = columns of A = rows of B; outer dims = result shape |
-| **Element-wise Multiplication** | `*` operator multiplies arrays element by element; broadcasting can allow different shapes.   | Shapes must be compatible or broadcastable |
-| **Matrix Multiplication**       | `@` or `np.dot(A, B)` multiplies matrices following inner dimension rule.                      | Use `.reshape()` if shapes incompatible |
-- np.dot() vs @
-| Operator / Function | Type of Multiplication            | Requirement / Rule                                                                 | Result Shape / Notes                           |
-|--------------------|---------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------|
-| `*`                | Element-wise multiplication      | Arrays must be same shape or broadcastable                                        | Each element multiplied individually          |
-| `@` or `np.dot()`  | Matrix multiplication (dot)      | Inner dimension rule: columns of first matrix = rows of second matrix            | Result shape = (rows of first × columns of second) |
-- Step-by-Step Matrix Multiplication (A @ B)
-
-Let
-\[
-A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}, \quad
-B = \begin{bmatrix} 7 & 8 \\ 9 & 10 \\ 11 & 12 \end{bmatrix}
-\]
+![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)  
+![NumPy](https://img.shields.io/badge/NumPy-1.24+-orange?logo=numpy)  
+![License](https://img.shields.io/badge/License-MIT-green)  
 
 ---
 
- Step 1: First element \(C[0,0]\)
+## 📂 Learning Phases  
 
-\[
-C[0,0] = (1*7) + (2*9) + (3*11)
-\]
+<details>
+<summary>🔹 Phase 1 – Basics</summary>
 
-Calculation:
-\[
-1*7 = 7,\quad 2*9 = 18,\quad 3*11 = 33
-\]
-\[
-C[0,0] = 7 + 18 + 33 = 58
-\]
+### ✅ Concepts  
+- Arrays from lists  
+- NumPy vs Python lists (performance, memory, math ops)  
+- Array dimensions & tensors  
+- Array properties:  
+  - `.ndim`, `.shape`, `.dtype`, `.nbytes`, `.itemsize`, `.size`  
+- Flatten vs Ravel  
+- Coordinates view of arrays  
 
----
+### 🧮 Math Connection  
+- Tensor = generalization of vectors/matrices  
+- Dimension (`ndim`) ↔ Order of tensor  
+- Shape ↔ Axes size  
 
- Step 2: First row, second column \(C[0,1]\)
-
-\[
-C[0,1] = (1*8) + (2*10) + (3*12)
-\]
-\[
-= 8 + 20 + 36 = 64
-\]
+</details>  
 
 ---
 
- Step 3: Second row, first column \(C[1,0]\)
+<details>
+<summary>🔹 Phase 2 – Array Operations</summary>
+
+### ✅ Concepts  
+- Indexing & Slicing (1D, 2D, 3D)  
+- Boolean masks & `np.where`  
+- Array operations: `append`, `insert`, `concatenate`, `stack`  
+- Broadcasting rules  
+- Element-wise multiplication vs Matrix multiplication  
+- Hands-on walkthrough of dot product & matrix multiplication  
+
+### 🧮 Math Connection  
+- Broadcasting = aligning smaller shapes to larger shapes for ops  
+- Dot product formula:  
 
 \[
-C[1,0] = (4*7) + (5*9) + (6*11)
-\]
-\[
-= 28 + 45 + 66 = 139
-\]
+\vec{a} \cdot \vec{b} = \sum_{i=1}^n a_i b_i
+\]  
+
+</details>  
 
 ---
 
- Step 4: Second row, second column \(C[1,1]\)
+<details>
+<summary>🔹 Phase 3 – Applied Math & ML</summary>
+
+### ✅ Concepts  
+- Business problem case study (arrays in decision making)  
+- Aggregations: `min`, `max`, `mean`, `cumsum`  
+- Vectors & Dot product  
+- Scalars vs Vectors rules (addition, multiplication)  
+- Euclidean Distance vs Cosine Similarity  
+- Applications in ML/NLP  
+  - Cosine similarity in embeddings  
+  - Vector projections  
+
+### 🧮 Math Connection  
+- **Euclidean distance**:  
 
 \[
-C[1,1] = (4*8) + (5*10) + (6*12)
-\]
-\[
-= 32 + 50 + 72 = 154
-\]
+d(\vec{a}, \vec{b}) = \sqrt{\sum (a_i - b_i)^2}
+\]  
 
----
-
- ✅ Final Result
+- **Cosine similarity**:  
 
 \[
-C = \begin{bmatrix} 58 & 64 \\ 139 & 154 \end{bmatrix}
-\]
+\cos(\theta) = \frac{\vec{a} \cdot \vec{b}}{||a|| \, ||b||}
+\]  
 
-### Phase 3
-Covered topics:
-- Business Problem
-- arithmetic operation
-- Min,max sales per rest
-- Average sales per restau
-- cumulative sum
-- VECTOR AND DOT PRODUCT (ADVANCED THEORY)
-
-1. Vector Definition:
-   - A vector is an ordered list of numbers representing magnitude and direction.
-   - In R^n space, a vector has n components.
-   - Example: v = [v1, v2, v3, ..., vn]
-
-2. Basic Vector Operations:
-   - Addition: u + v = [u1+v1, u2+v2, ..., un+vn]
-   - Scalar Multiplication: c*u = [c*u1, c*u2, ..., c*un]
-   - Norm (Length): ||u|| = sqrt(u1^2 + u2^2 + ... + un^2)
-
-3. Dot Product (Scalar Product):
-   - Formula: u · v = u1*v1 + u2*v2 + ... + un*vn
-   - Result is a scalar (not a vector).
-   - It measures "directional similarity" between vectors.
-
-4. Geometric Interpretation:
-   - u · v = ||u|| * ||v|| * cos(θ)
-   - θ = angle between u and v
-   - If u · v > 0 → angle < 90° (vectors point in similar direction)
-   - If u · v = 0 → vectors are orthogonal (perpendicular)
-   - If u · v < 0 → angle > 90° (vectors point in opposite directions)
-
-5. Applications in Data Science:
-   - Cosine Similarity:
-       cos(θ) = (u · v) / (||u|| * ||v||)
-       Used in text similarity, recommendation systems, word embeddings.
-   - Projections:
-       Projection of u on v = (u · v / ||v||^2) * v
-       Used in dimensionality reduction and regression.
-   - Matrix Multiplication:
-       Each element of matrix product is a dot product of a row and a column.
-   - Machine Learning:
-       Neural networks compute weighted sums (dot products) in each layer.
-
-6. Advanced Example Context:
-   - Consider two word embeddings in NLP:
-       u = vector of "king"
-       v = vector of "man"
-       w = vector of "woman"
-     The relationship "king - man + woman ≈ queen" uses vector arithmetic and dot products.
-
-7. Summary:
-   - Vector → direction + magnitude
-   - Dot product → scalar measuring similarity + angle
-   - Core tool in ML: similarity, projection, optimization, embeddings.
-- 1. Scalars:
-   - A scalar is just a single number (magnitude only, no direction).
-   - Examples: temperature = 30°C, mass = 70kg, speed = 50 km/h.
-   - Represented as: s ∈ ℝ (real number).
-
-2. Vectors:
-   - A vector has both magnitude AND direction.
-   - Examples: velocity = (60 km/h north), force = (10 N upward).
-   - Represented as: v = [v1, v2, v3, ...] in n-dimensional space.
-
-3. Relation between Vector and Scalar:
-   - Vectors can be scaled by scalars:
-        If v = [2, 3], then 2*v = [4, 6].
-   - The **length (magnitude)** of a vector is a scalar.
-   - The **dot product** of two vectors → scalar.
-   - The **cross product** of two vectors → vector.
-
-4. Operations involving Scalars:
-   - Scalar × Scalar → Scalar
-   - Scalar × Vector → Vector
-   - Vector · Vector → Scalar
-   - Vector × Vector → Vector (3D only)
-- EUCLIDEAN DISTANCE vs COSINE SIMILARITY
-
-1. Euclidean Distance:
-   - Definition: Straight-line distance between two vectors (points).
-   - Formula:
-       d(u, v) = sqrt( (u1 - v1)^2 + (u2 - v2)^2 + ... + (un - vn)^2 )
-   - Always >= 0.
-   - Small value → vectors/points are close.
-   - Used in: kNN (k-Nearest Neighbors), clustering, image retrieval.
-
-2. Cosine Similarity:
-   - Definition: Measures cosine of angle between two vectors.
-   - Formula:
-       cos(θ) = (u · v) / (||u|| * ||v||)
-   - Value range: [-1, 1]
-       1   → vectors point in same direction
-       0   → vectors are orthogonal (no similarity)
-      -1   → vectors point in opposite directions
-   - Focuses on **orientation**, not magnitude.
-   - Used in: text similarity (TF-IDF vectors), recommendation systems.
-
-3. Key Difference:
-   - Euclidean Distance → measures absolute distance (magnitude matters).
-   - Cosine Similarity → measures directional similarity (magnitude ignored).
-
-4. Example:
-   u = [1, 2], v = [2, 4]
-   - Euclidean distance = sqrt((1-2)^2 + (2-4)^2) = sqrt(1+4) = √5
-   - Cosine similarity = (u·v)/(||u||*||v||) = (1*2+2*4)/(√5*√20) = 10/10 = 1
-   → Meaning: u and v point in same direction but are at different lengths.
+</details>  
 
 ---
 
-## 📅 Study Planner
+## 📅 Study Planner  
 
-| Week | Focus Area | Concepts & Math | Practice |
-|------|------------|-----------------|----------|
-| 1 | NumPy Basics | Arrays, Shapes, Axes, Indexing | Hands-on with array creation |
-| 2 | Array Operations | Vectorized math, Broadcasting, Dot Product | Linear Algebra mini-project |
-| 3 | Slicing & Masking | Boolean masks, Filtering | Data cleaning task |
-| 4 | Advanced Topics | Aggregations, Statistics, Random | Mini case study |
-
----
-
-## 🧮 Math & Theory Behind NumPy
-
-- **Linear Algebra** → Vectors, Matrices, Dot Product
-- **Broadcasting** → Matching array shapes using math rules
-- **Indexing & Masking** → Boolean logic for selecting data
-- **Statistics** → Mean, Variance, Standard Deviation
-- **Randomness** → Random number generation & distributions
+| Week | Focus | Concepts | Mini Project |
+|------|-------|----------|--------------|
+| 1 | NumPy Basics | Arrays, Shapes, Indexing | Build embeddings |
+| 2 | Array Ops | Broadcasting, Dot Product | Linear Algebra Demo |
+| 3 | Slicing & Masks | Boolean filtering | Data Cleaning |
+| 4 | Advanced Math | Stats, Similarity | Case Study Analysis |
 
 ---
 
-## 🚀 How to Study
+## 🚀 How to Use  
 
-1. **Read the theory** in the notebooks (mathematical background).
-2. **Practice with the NumPy code cells** – tweak numbers, shapes.
-3. **Relate math to NumPy** → e.g., dot product = matrix multiplication.
-4. **Do weekly projects** (array ops, linear regression, data filtering).
-5. **Document learning** in your own words (commit to GitHub).
+```bash
+# clone repo
+git clone https://github.com/yourusername/numpy-4-everyone
 
-Happy Learning! 🎯
-
-
+# open notebooks
+jupyter notebook Phase_1.ipynb
