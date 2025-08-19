@@ -102,3 +102,4 @@ git clone https://github.com/yourusername/numpy-4-everyone
 
 # open notebooks
 jupyter notebook Phase_1.ipynb
+
