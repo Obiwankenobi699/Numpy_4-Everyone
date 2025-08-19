@@ -17,8 +17,7 @@
 - Arrays from lists  
 - NumPy vs Python lists (performance, memory, math ops)  
 - Array dimensions & tensors  
-- Array properties:  
-  - `.ndim`, `.shape`, `.dtype`, `.nbytes`, `.itemsize`, `.size`  
+- Array properties: `.ndim`, `.shape`, `.dtype`, `.nbytes`, `.itemsize`, `.size`  
 - Flatten vs Ravel  
 - Coordinates view of arrays  
 
